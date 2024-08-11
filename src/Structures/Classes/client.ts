@@ -26,6 +26,8 @@ import ClientEventsHandler from "../Handlers/clientEvents.js";
 import SlashCommandHandler from "../Handlers/slashCommands.js";
 import ComponentInteractionsHandler from "../Handlers/componentInteraction.js";
 
+import fs from "fs";
+
 import mongoose from "mongoose";
 
 const { Guilds, GuildMembers, GuildMessages, GuildVoiceStates } =
@@ -36,11 +38,11 @@ const logger = new ConsoleLogger();
 class DistubeClient extends Client<true> {
   distube = new DisTube(this, {
     plugins: [
-      // new YouTubePlugin({
-      //   cookies: JSON.parse(
-      //     fs.readFileSync(`${process.cwd()}/src/cookies.json`, "utf8")
-      //   ),
-      // }),
+      new YouTubePlugin({
+        cookies: JSON.parse(
+          fs.readFileSync(`${process.cwd()}/src/cookies.json`, "utf8")
+        ),
+      }),
       new SoundCloudPlugin(),
       new SpotifyPlugin(),
     ],
