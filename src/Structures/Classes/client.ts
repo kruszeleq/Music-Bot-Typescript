@@ -63,6 +63,8 @@ export class BaseClient extends DistubeClient {
   public selectMenus: Collection<string, SelectMenu>;
   public buttons: Collection<string, Button>;
 
+  public voiceGenerator: Collection<string, string>;
+
   public currentStatus: number;
   public config: Config;
 
@@ -77,6 +79,8 @@ export class BaseClient extends DistubeClient {
 
     this.selectMenus = new Collection();
     this.buttons = new Collection();
+
+    this.voiceGenerator = new Collection();
 
     this.currentStatus = 0;
     this.config = clientConfig;

@@ -59,7 +59,7 @@ export default class SlashCommandsHandler {
       chalk.green.bold(
         `\n\n⠀⠀⠀⠀⠀⠀--- Djs.14 TYPESCRIPT Command Handler ---\n${" ".repeat(
           12
-        )}-> DM Jonas#1713 for help \n\n`
+        )}-> DM krofi_ for help \n\n`
       )
     );
 
