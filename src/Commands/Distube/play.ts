@@ -1,4 +1,6 @@
 import {
+  ApplicationCommandOptionChoiceData,
+  AutocompleteInteraction,
   ChatInputCommandInteraction,
   EmbedBuilder,
   SlashCommandBuilder,
@@ -7,6 +9,7 @@ import { Command } from "../../Structures/Interfaces/index.js";
 import { BaseClient } from "../../Structures/Classes/client.js";
 import { Metadata } from "../../Structures/Classes/client.js";
 import { color } from "../../Structures/Appearance/index.js";
+import ytsr from "@distube/ytsr";
 
 const playCommand: Command = {
   data: new SlashCommandBuilder()
@@ -19,11 +22,29 @@ const playCommand: Command = {
         .setName("query")
         .setDescription("Wklej link albo wpisz swoje wyszukiwanie")
         .setRequired(true)
+        .setAutocomplete(true)
     ),
   options: {
     inVoiceChannel: true,
   },
 
+  autocomplete: async (
+    interaction: AutocompleteInteraction<"cached">,
+    client: BaseClient
+  ) => {
+    const option = interaction.options.getFocused();
+    const options: ApplicationCommandOptionChoiceData[] = [];
+
+    try {
+      await ytsr(option, { limit: 5 }).then((result) => {
+        for (const item of result.items) {
+          options.push({ name: item.name.slice(0, 99), value: item.url });
+        }
+      });
+    } catch (e) {}
+
+    await interaction.respond(options);
+  },
   execute: async (
     interaction: ChatInputCommandInteraction<"cached">,
     client: BaseClient

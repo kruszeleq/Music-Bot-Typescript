@@ -12,9 +12,8 @@ const addSong: Event = {
         new EmbedBuilder()
           .setColor(`#${color.Discord.BACKGROUND}`)
           .setDescription(
-            `Dodano **[${song.name}](${song.url})** - \`${song.formattedDuration}\` przez ${song.user}`
+            `Dodano **[${song.name}](${song.url})** - \`${song.formattedDuration}\`\n-# **Dodał:** ${song.user}`
           )
-          .setTimestamp()
           .setThumbnail(`${song.thumbnail}`),
       ],
     });

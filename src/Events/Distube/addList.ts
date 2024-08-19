@@ -14,9 +14,8 @@ const addList: Event = {
         new EmbedBuilder()
           .setColor(`#${color.Discord.BACKGROUND}`)
           .setDescription(
-            `Dodano **[${playlist.name}](${playlist.url})** - \`${playlist.songs.length}\` do kolejki przez ${playlist.user}`
+            `Dodano **[${playlist.name}](${playlist.url})** - \`${playlist.songs.length}\` do kolejki \n-# *Dodał:** ${playlist.user}`
           )
-          .setTimestamp()
           .setThumbnail(`${playlist.thumbnail}`),
       ],
     });

@@ -1,8 +1,8 @@
+import { color } from "../../Structures/Appearance/colors.js";
 import { BaseClient } from "../../Structures/Classes/client";
 import { Event } from "../../Structures/Interfaces/Events/event";
-import { EmbedBuilder, InteractionType } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import type { Interaction } from "discord.js";
-import ytsr from "@distube/ytsr";
 
 const interactionCreate: Event = {
   name: "interactionCreate",
@@ -19,7 +19,7 @@ const interactionCreate: Event = {
       return interaction.reply({
         embeds: [
           new EmbedBuilder()
-            .setColor("#2f3136")
+            .setColor(`#${color.Material.RED}`)
             .setDescription(
               "> This command is **outdated**, please try again."
             ),
@@ -43,6 +43,7 @@ const interactionCreate: Event = {
         ephemeral: true,
       });
     }
+
     command.execute(interaction, client);
   },
 };

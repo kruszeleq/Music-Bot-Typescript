@@ -3,24 +3,23 @@ import { Button } from "../../../Structures/Interfaces/index.js";
 import { BaseClient } from "../../../Structures/Classes/client.js";
 import { color } from "../../../Structures/Appearance/index.js";
 
-const skipMusic: Button = {
-  customId: "autoplay",
+const shuffle: Button = {
+  customId: "shuffle",
   allowInteractionAuthorOnly: false,
   inVoiceChannel: true,
   playing: true,
   execute: async (interaction: ButtonInteraction, client: BaseClient) => {
-    await interaction.reply({
+    if (!client.distube.getQueue(interaction)) return;
+
+    await client.distube.shuffle(interaction);
+    interaction.reply({
       embeds: [
         new EmbedBuilder()
           .setColor(`#${color.Discord.BACKGROUND}`)
-          .setDescription(
-            `Autoodtwarzanie: \`${
-              client.distube.toggleAutoplay(interaction) ? "Wł." : "Wył."
-            }\``
-          ),
+          .setDescription("Pomieszano kolejkę"),
       ],
     });
   },
 };
 
-export default skipMusic;
+export default shuffle;

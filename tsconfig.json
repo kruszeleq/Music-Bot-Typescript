@@ -15,6 +15,10 @@
     "noEmitOnError": true,
     "skipDefaultLibCheck": true
   },
-  "include": ["src/**/**/**/*.ts"],
+  "include": [
+    "src/**/**/**/*.ts",
+    "archive/selectMenuInteraction.ts",
+    "archive/filter.ts"
+  ],
   "exclude": ["node_modules"]
 }

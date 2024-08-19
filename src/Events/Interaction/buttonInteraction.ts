@@ -1,4 +1,9 @@
-import { ButtonInteraction, EmbedBuilder } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonInteraction,
+  EmbedBuilder,
+} from "discord.js";
 import { Event } from "../../Structures/Interfaces/Events/event";
 import { BaseClient } from "./../../Structures/Classes/client";
 import { color } from "../../Structures/Appearance/index.js";
@@ -13,6 +18,9 @@ const event: Event = {
   },
   execute: async (interaction: ButtonInteraction, client: BaseClient) => {
     if (!interaction.isButton()) return;
+
+    if (interaction.customId === "next" || interaction.customId === "back")
+      return;
 
     let button: Button;
 

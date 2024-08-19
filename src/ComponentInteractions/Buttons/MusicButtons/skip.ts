@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
+import { ButtonInteraction, EmbedBuilder } from "discord.js";
 import { Button } from "../../../Structures/Interfaces/index.js";
 import { BaseClient } from "../../../Structures/Classes/client.js";
 import { color } from "../../../Structures/Appearance/index.js";
@@ -8,10 +8,7 @@ const skipMusic: Button = {
   allowInteractionAuthorOnly: false,
   inVoiceChannel: true,
   playing: true,
-  execute: async (
-    interaction: ChatInputCommandInteraction,
-    client: BaseClient
-  ) => {
+  execute: async (interaction: ButtonInteraction, client: BaseClient) => {
     const queue = await client.distube.getQueue(interaction);
     if (!queue) return;
 

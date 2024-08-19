@@ -26,26 +26,18 @@ import ClientEventsHandler from "../Handlers/clientEvents.js";
 import SlashCommandHandler from "../Handlers/slashCommands.js";
 import ComponentInteractionsHandler from "../Handlers/componentInteraction.js";
 
-import fs from "fs";
-
 import mongoose from "mongoose";
+import ytdl from "@distube/ytdl-core";
 
 const { Guilds, GuildMembers, GuildMessages, GuildVoiceStates } =
   GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember } = Partials;
 
 const logger = new ConsoleLogger();
+
 class DistubeClient extends Client<true> {
   distube = new DisTube(this, {
-    plugins: [
-      new YouTubePlugin({
-        cookies: JSON.parse(
-          fs.readFileSync(`${process.cwd()}/src/cookies.json`, "utf8")
-        ),
-      }),
-      new SoundCloudPlugin(),
-      new SpotifyPlugin(),
-    ],
+    plugins: [new SoundCloudPlugin(), new SpotifyPlugin()],
     emitNewSongOnly: true,
     ffmpeg: {
       path: "C:/Users/krusz/Desktop/programowanko/ffmpeg-7.0-essentials_build/bin/ffmpeg.exe",

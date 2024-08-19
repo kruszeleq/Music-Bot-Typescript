@@ -1,4 +1,9 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonInteraction,
+  ButtonStyle,
+} from "discord.js";
 
 const QueuePage = async (
   client,
@@ -8,7 +13,7 @@ const QueuePage = async (
   queueLength,
   queueDuration
 ) => {
-  if (!message && !message.channel) throw new Error("Kanał jest niedostępny.");
+  if (!message || !message.channel) throw new Error("Kanał jest niedostępny.");
   if (!pages) throw new Error("Strony nie są podane");
 
   const row1 = new ButtonBuilder()
@@ -42,13 +47,10 @@ const QueuePage = async (
     time: timeout,
   });
 
-  collector.on("collect", async (interaction) => {
+  collector.on("collect", async (interaction: ButtonInteraction) => {
     if (!interaction.deferred) await interaction.deferUpdate();
-    if (interaction.customId === "back") {
-      page = page > 0 ? --page : pages.length - 1;
-    } else if (interaction.customId === "next") {
-      page = page + 1 < pages.length ? ++page : 0;
-    }
+    page += interaction.customId === "next" ? 1 : -1;
+    page = (page + pages.length) % pages.length;
     curPage.edit({
       embeds: [
         pages[page].setFooter({

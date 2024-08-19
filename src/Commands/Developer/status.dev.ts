@@ -11,6 +11,7 @@ import mongoose from "mongoose";
 import { icon } from "../../Structures/Appearance/icon.js";
 import { ChartConfiguration, ChartData } from "chart.js";
 import { Command } from "../../Structures/Interfaces/index.js";
+import { color } from "../../Structures/Appearance/colors.js";
 const command: Command = {
   data: new SlashCommandBuilder()
     .setName("status")
@@ -193,9 +194,9 @@ const command: Command = {
       return interaction.editReply({
         embeds: [
           new EmbedBuilder()
-            .setColor("Red")
-            .setTitle("🛑 No Data Found!")
-            .setDescription("Please wait for the information to collect!"),
+            .setColor(`#${color.Material.RED}`)
+            .setTitle("🛑 Nie znaleziono danych")
+            .setDescription("Proszę poczekać, aż informacje się zbiorą!"),
         ],
       });
     }
@@ -223,7 +224,7 @@ const command: Command = {
         },
         {
           name: `${icon.reply.default} Zasoby`,
-          value: `**\`•\` Średnie zużycie RAM'u:**: ${AvgMem.toFixed(1)}%`,
+          value: `**\`•\` Średnie zużycie RAM'u:**: ${AvgMem.toFixed(1)}Mb`,
           inline: false,
         }
       )

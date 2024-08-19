@@ -8,5 +8,6 @@ interface CommandOptions {
 export interface Command {
   data: SlashCommandBuilder | any;
   options?: CommandOptions;
+  autocomplete?: (...args: any[]) => any;
   execute: (...args: any[]) => any;
 }

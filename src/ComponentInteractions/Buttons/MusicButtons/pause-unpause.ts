@@ -4,20 +4,22 @@ import { BaseClient } from "../../../Structures/Classes/client.js";
 import { color } from "../../../Structures/Appearance/index.js";
 
 const skipMusic: Button = {
-  customId: "autoplay",
+  customId: "pause-unpause",
   allowInteractionAuthorOnly: false,
   inVoiceChannel: true,
   playing: true,
   execute: async (interaction: ButtonInteraction, client: BaseClient) => {
+    const queue = client.distube.getQueue(interaction);
+    if (!queue) return;
+
+    const embed = new EmbedBuilder().setColor(`#${color.Discord.BACKGROUND}`);
+
+    (await queue.paused) ? queue.resume() : queue.pause();
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setColor(`#${color.Discord.BACKGROUND}`)
-          .setDescription(
-            `Autoodtwarzanie: \`${
-              client.distube.toggleAutoplay(interaction) ? "Wł." : "Wył."
-            }\``
-          ),
+        embed.setDescription(
+          `Kolejka została \`${queue.paused ? "zatrzymana" : "wznowiona"}\``
+        ),
       ],
     });
   },

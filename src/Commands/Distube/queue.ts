@@ -26,6 +26,7 @@ const queueCommand: Command = {
     interaction: ChatInputCommandInteraction<"cached">,
     client: BaseClient
   ) => {
+    await interaction.deferReply();
     const args = interaction.options.getInteger("page");
     const queue = client.distube.getQueue(interaction);
     if (!queue) return;
@@ -76,13 +77,13 @@ const queueCommand: Command = {
           queue.songs.length,
           queue.formattedDuration
         );
-      else return interaction.reply({ embeds: [pages[0]] });
+      else return interaction.editReply({ embeds: [pages[0]] });
     } else {
-      if (isNaN(args)) return interaction.reply("Strona musi być liczbą.");
+      if (isNaN(args)) return interaction.editReply("Strona musi być liczbą.");
       if (args > pagesNum)
-        return interaction.reply(`Dostępne są tylko ${pagesNum} strony.`);
+        return interaction.editReply(`Dostępne są tylko ${pagesNum} strony.`);
       const pageNum = args == 0 ? 1 : args - 1;
-      return interaction.reply({ embeds: [pages[pageNum]] });
+      return interaction.editReply({ embeds: [pages[pageNum]] });
     }
   },
 };
