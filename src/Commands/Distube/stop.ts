@@ -19,7 +19,10 @@ const stopCommand: Command = {
     interaction: ChatInputCommandInteraction<"cached">,
     client: BaseClient
   ) => {
+    const queue = client.distube.getQueue(interaction);
+    if (!queue) return;
     try {
+      queue.stopped = true;
       await client.distube.stop(interaction);
       interaction.reply({
         embeds: [

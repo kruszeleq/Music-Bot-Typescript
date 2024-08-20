@@ -35,6 +35,7 @@ const skipCommand: Command = {
           ephemeral: true,
         });
 
+      queue.songs[0].skipped = true;
       await client.distube.skip(interaction);
 
       interaction.reply({

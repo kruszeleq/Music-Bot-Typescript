@@ -79,8 +79,7 @@ const playSong: Event = {
           }
         ),
       queue.textChannel,
-      ButtonWrapper(buttons),
-      song.duration * 1000
+      ButtonWrapper(buttons)
     ).catch(console.error);
   },
 };

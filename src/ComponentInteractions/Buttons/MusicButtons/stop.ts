@@ -9,8 +9,10 @@ const skipMusic: Button = {
   inVoiceChannel: true,
   playing: true,
   execute: async (interaction: ButtonInteraction, client: BaseClient) => {
-    if (!client.distube.getQueue(interaction)) return;
-    interaction.message;
+    const queue = client.distube.getQueue(interaction);
+    if (!queue) return;
+
+    queue.stopped = true;
 
     await client.distube.stop(interaction);
     interaction.reply({

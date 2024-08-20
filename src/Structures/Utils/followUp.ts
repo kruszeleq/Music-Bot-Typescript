@@ -1,19 +1,16 @@
 import {
-  ButtonBuilder,
   ChatInputCommandInteraction,
   EmbedBuilder,
   GuildTextBasedChannel,
 } from "discord.js";
-import ButtonWrapper from "./button-wrapper.js";
+let message;
 
 export const followUp = async (
   interaction: ChatInputCommandInteraction,
   embed: EmbedBuilder,
   textChannel: GuildTextBasedChannel,
-  button?: any[],
-  disableAfter?: number
+  button?: any[]
 ) => {
-  let message;
   if (Date.now() - interaction.createdTimestamp < 15 * 60 * 1000) {
     message = await interaction.followUp({
       embeds: [embed],
@@ -26,16 +23,7 @@ export const followUp = async (
       ...(button ? { components: button } : {}),
     });
   }
-
-  if (disableAfter) {
-    setTimeout(async () => {
-      const rows = message.components.flatMap((row) =>
-        row.components.map((btn) => ButtonBuilder.from(btn).setDisabled(true))
-      );
-
-      await message.edit({ components: ButtonWrapper(rows) });
-    }, disableAfter);
-  }
 };
 
+export { message };
 //TODO podczas aktualizowania przyciskow aktualizuja sie tylko 5 przyciskow nie 6
