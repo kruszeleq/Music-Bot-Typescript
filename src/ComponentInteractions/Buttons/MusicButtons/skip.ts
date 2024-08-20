@@ -1,8 +1,7 @@
 import { ButtonInteraction, EmbedBuilder } from "discord.js";
-import { Button } from "../../../Structures/Interfaces/index.js";
+import { Button, ExtSong } from "../../../Structures/Interfaces/index.js";
 import { BaseClient } from "../../../Structures/Classes/client.js";
 import { color } from "../../../Structures/Appearance/index.js";
-
 const skipMusic: Button = {
   customId: "skip",
   allowInteractionAuthorOnly: false,
@@ -22,7 +21,7 @@ const skipMusic: Button = {
         ephemeral: true,
       });
 
-    queue.songs[0].skipped = true;
+    (queue.songs[0] as ExtSong).skipped = true;
 
     await client.distube.skip(interaction);
 

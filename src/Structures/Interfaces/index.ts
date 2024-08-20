@@ -1,3 +1,4 @@
+export { ExtSong } from "./Events/extsong";
 export { SelectMenu } from "./Component/selectMenu";
 export { Button } from "./Component/button";
 export { Command } from "./Commands/command.js";

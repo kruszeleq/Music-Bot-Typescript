@@ -3,7 +3,7 @@ import {
   EmbedBuilder,
   SlashCommandBuilder,
 } from "discord.js";
-import { Command } from "../../Structures/Interfaces/index.js";
+import { Command, ExtSong } from "../../Structures/Interfaces/index.js";
 import { BaseClient } from "../../Structures/Classes/client.js";
 import { color } from "../../Structures/Appearance/index.js";
 
@@ -35,7 +35,7 @@ const skipCommand: Command = {
           ephemeral: true,
         });
 
-      queue.songs[0].skipped = true;
+      (queue.songs[0] as ExtSong).skipped = true;
       await client.distube.skip(interaction);
 
       interaction.reply({
