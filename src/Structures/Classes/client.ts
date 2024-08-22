@@ -1,3 +1,5 @@
+import { SoundCloudPlugin } from "@distube/soundcloud";
+import { SpotifyPlugin } from "@distube/spotify";
 import {
   ChatInputCommandInteraction,
   Client,
@@ -7,31 +9,22 @@ import {
   Partials,
   version,
 } from "discord.js";
-
-import { SpotifyPlugin } from "@distube/spotify";
-import { YouTubePlugin } from "@distube/youtube";
 import { DisTube } from "distube";
-import { SoundCloudPlugin } from "@distube/soundcloud";
-
-import { Command } from "../Interfaces/Commands/command.js";
-import { Event } from "../Interfaces/Events/event.js";
-import { Config } from "../Interfaces/Config/config.js";
-import { Button, SelectMenu } from "../Interfaces/index.js";
+import mongoose from "mongoose";
 
 import clientConfig from "../../config.js";
-
-import ConsoleLogger from "./consoleLogger.js";
-
 import ClientEventsHandler from "../Handlers/clientEvents.js";
-import SlashCommandHandler from "../Handlers/slashCommands.js";
 import ComponentInteractionsHandler from "../Handlers/componentInteraction.js";
-
-import mongoose from "mongoose";
-import ytdl from "@distube/ytdl-core";
+import SlashCommandHandler from "../Handlers/slashCommands.js";
+import { Command } from "../Interfaces/Commands/command.js";
+import { Config } from "../Interfaces/Config/config.js";
+import { Event } from "../Interfaces/Events/event.js";
+import { Button, SelectMenu } from "../Interfaces/index.js";
+import ConsoleLogger from "./consoleLogger.js";
 
 const { Guilds, GuildMembers, GuildMessages, GuildVoiceStates } =
   GatewayIntentBits;
-const { User, Message, GuildMember, ThreadMember } = Partials;
+const { User, Message, GuildMember, ThreadMember, Channel } = Partials;
 
 const logger = new ConsoleLogger();
 
@@ -39,6 +32,7 @@ class DistubeClient extends Client<true> {
   distube = new DisTube(this, {
     plugins: [new SoundCloudPlugin(), new SpotifyPlugin()],
     emitNewSongOnly: true,
+
     ffmpeg: {
       path: "C:/Users/krusz/Desktop/programowanko/ffmpeg-7.0-essentials_build/bin/ffmpeg.exe",
     },
@@ -63,7 +57,7 @@ export class BaseClient extends DistubeClient {
   constructor() {
     super({
       intents: [Guilds, GuildMembers, GuildMessages, GuildVoiceStates],
-      partials: [User, Message, GuildMember, ThreadMember],
+      partials: [User, Message, GuildMember, ThreadMember, Channel],
     });
 
     this.commands = new Collection();

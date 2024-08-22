@@ -1,8 +1,8 @@
 import { color } from "../../Structures/Appearance/colors.js";
 import { BaseClient } from "../../Structures/Classes/client";
 import { Event } from "../../Structures/Interfaces/Events/event";
-import { EmbedBuilder } from "discord.js";
-import type { Interaction } from "discord.js";
+import { DMChannel, EmbedBuilder } from "discord.js";
+import type { ChannelType, Interaction } from "discord.js";
 
 const interactionCreate: Event = {
   name: "interactionCreate",
@@ -13,6 +13,16 @@ const interactionCreate: Event = {
   },
   execute: async (interaction: Interaction, client: BaseClient) => {
     if (!interaction.isChatInputCommand()) return;
+    if (interaction.channel instanceof DMChannel)
+      return interaction.user.send({
+        embeds: [
+          new EmbedBuilder()
+            .setColor(`#${color.Material.RED}`)
+            .setDescription(
+              "Nie wykonuję poleceń w prywatnych wiadomościach!\n-# Aby skorzystać z moich poleceń, użyj ich na serwerze na którym jestem!"
+            ),
+        ],
+      });
     const command = client.commands.get(interaction.commandName);
 
     if (!command) {

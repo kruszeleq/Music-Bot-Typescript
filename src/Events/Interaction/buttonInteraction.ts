@@ -1,9 +1,4 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonInteraction,
-  EmbedBuilder,
-} from "discord.js";
+import { ButtonInteraction, DMChannel, EmbedBuilder } from "discord.js";
 import { Event } from "../../Structures/Interfaces/Events/event";
 import { BaseClient } from "./../../Structures/Classes/client";
 import { color } from "../../Structures/Appearance/index.js";
@@ -18,6 +13,16 @@ const event: Event = {
   },
   execute: async (interaction: ButtonInteraction, client: BaseClient) => {
     if (!interaction.isButton()) return;
+    if (interaction.channel instanceof DMChannel)
+      return interaction.user.send({
+        embeds: [
+          new EmbedBuilder()
+            .setColor(`#${color.Material.RED}`)
+            .setDescription(
+              "Nie wykonuję poleceń w prywatnych wiadomościach!\n-# Aby skorzystać z moich poleceń, użyj ich na serwerze na którym jestem!"
+            ),
+        ],
+      });
 
     if (interaction.customId === "next" || interaction.customId === "back")
       return;

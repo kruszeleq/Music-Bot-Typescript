@@ -1169,7 +1169,7 @@ sodium-native@^4.1.1:
   dependencies:
     node-gyp-build "^4.8.0"
 
-soundcloud.ts@^0.5.3:
+soundcloud.ts@^0.5.3, soundcloud.ts@^0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/soundcloud.ts/-/soundcloud.ts-0.5.5.tgz#fcac1cc6f84fdee548d834acc5b74e4b6fc480a6"
   integrity sha512-bygjhC1w/w26Nk0Y+4D4cWSEJ1TdxLaE6+w4pCazFzPF+J4mzuB62ggWmFa7BiwnirzNf9lgPbjzrQYGege4Ew==

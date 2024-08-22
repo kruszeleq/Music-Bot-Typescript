@@ -28,7 +28,8 @@
     "glob": "10.3.10",
     "mongoose": "^8.5.2",
     "opusscript": "^0.1.1",
-    "sodium-native": "^4.1.1"
+    "sodium-native": "^4.1.1",
+    "soundcloud.ts": "^0.5.5"
   },
   "devDependencies": {
     "@types/node": "^22.2.0",

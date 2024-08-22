@@ -5,11 +5,12 @@ import {
   EmbedBuilder,
   SlashCommandBuilder,
 } from "discord.js";
-import { Command } from "../../Structures/Interfaces/index.js";
-import { BaseClient } from "../../Structures/Classes/client.js";
-import { Metadata } from "../../Structures/Classes/client.js";
+import { Soundcloud } from "soundcloud.ts";
 import { color } from "../../Structures/Appearance/index.js";
-import ytsr from "@distube/ytsr";
+import { BaseClient, Metadata } from "../../Structures/Classes/client.js";
+import { Command } from "../../Structures/Interfaces/index.js";
+
+const soundcloud = new Soundcloud();
 
 const playCommand: Command = {
   data: new SlashCommandBuilder()
@@ -28,17 +29,14 @@ const playCommand: Command = {
     inVoiceChannel: true,
   },
 
-  autocomplete: async (
-    interaction: AutocompleteInteraction<"cached">,
-    client: BaseClient
-  ) => {
+  autocomplete: async (interaction: AutocompleteInteraction) => {
     const option = interaction.options.getFocused();
     const options: ApplicationCommandOptionChoiceData[] = [];
 
     try {
-      await ytsr(option, { limit: 5 }).then((result) => {
-        for (const item of result.items) {
-          options.push({ name: item.name.slice(0, 99), value: item.url });
+      await soundcloud.tracks.searchV2({ q: option }).then((result) => {
+        for (const track of result.collection) {
+          options.push({ name: track.title, value: track.permalink_url });
         }
       });
     } catch (e) {}
